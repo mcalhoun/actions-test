@@ -28,12 +28,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Init and Validate Base AMI
-        working-directory: components/packer/base
-        run: |
-          packer init .
-          packer validate .
-
       - name: Export Environment
         run: |
           cat .github/global-v2.env >> $GITHUB_ENV
