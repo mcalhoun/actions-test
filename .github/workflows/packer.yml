@@ -1,0 +1,59 @@
+name: packer
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, closed]
+    paths:
+      - ".github/workflows/packer.yml"
+      - "components/packer/**"
+  push:
+    branches:
+      - $default-branch
+    paths:
+      - ".github/workflows/packer.yml"
+  release:
+    types:
+      - published
+
+jobs:
+  packer-base:
+    env:
+      PACKER_BUILD_TAGGED: "false"
+      IS_DEFAULT_BRANCH: "false"
+    runs-on: self-hosted
+    steps:
+      - name: Setup Packer
+        uses: hashicorp-contrib/setup-packer@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Init and Validate Base AMI
+        working-directory: components/packer/base
+        run: |
+          packer init .
+          packer validate .
+
+      - name: Export Environment
+        run: |
+          cat .github/global-v2.env >> $GITHUB_ENV
+
+      - name: Update Environment (IS_DEFAULT_BRANCH)
+        if: format('refs/heads/{0}', github.event.repository.default_branch) == github.ref
+        run: |
+          echo "IS_DEFAULT_BRANCH=true" >> $GITHUB_ENV
+
+      - name: Update Environment (PACKER_BUILD_TAGGED)
+        if: contains( github.event.pull_request.labels.*.name, 'build-ami')
+        run: |
+          echo "PACKER_BUILD_TAGGED=true" >> $GITHUB_ENV
+
+      - name: Build Base AMI
+        if: github.event.pull_request.merged == true && env.IS_DEFAULT_BRANCH == 'true'
+        run: |
+          echo "*******MAIN BRANCH AFTER PR"
+
+      - name: Build Base AMI (Feature Branch)
+        if: env.IS_DEFAULT_BRANCH == 'false' && env.PACKER_BUILD_TAGGED == 'true'
+        run: |
+          echo "*******FEATURE BRANCH"
