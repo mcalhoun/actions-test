@@ -20,7 +20,7 @@ jobs:
     env:
       PACKER_BUILD_TAGGED: "false"
       IS_DEFAULT_BRANCH: "false"
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Setup Packer
         uses: hashicorp-contrib/setup-packer@v1
