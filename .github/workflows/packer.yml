@@ -43,7 +43,7 @@ jobs:
           echo "PACKER_BUILD_TAGGED=true" >> $GITHUB_ENV
 
       - name: Build Base AMI
-        if: github.event.pull_request.merged == true && env.IS_DEFAULT_BRANCH == 'true'
+        if: github.event.pull_request.merged == true
         run: |
           echo "*******MAIN BRANCH AFTER PR"
 
