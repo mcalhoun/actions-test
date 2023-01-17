@@ -10,7 +10,5 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Print GitHub Context
-        run: |
-          echo "GitHub Context:"
-          echo ${{ toJson(github) }}
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v1
