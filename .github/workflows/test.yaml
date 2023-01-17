@@ -1,0 +1,16 @@
+name: packer
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub Context
+        run: |
+          echo "GitHub Context:"
+          echo "$GITHUB_CONTEXT"
