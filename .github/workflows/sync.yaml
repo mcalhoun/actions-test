@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
+        id: login-aws
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
@@ -28,4 +29,4 @@ jobs:
         with:
           src: busybox
           dest: 552533042161.dkr.ecr.us-east-1.amazonaws.com
-          dest-credentials: "${{ steps.login-ecr.outputs.docker_username_123456789012_dkr_ecr_us_east_1_amazonaws_com }}:${{ steps.login-ecr.outputs.docker_password_123456789012_dkr_ecr_us_east_1_amazonaws_com }}"
+          dest-credentials: "${{ steps.login-ecr.outputs.docker_username_552533042161_dkr_ecr_us_east_1_amazonaws_com }}:${{ steps.login-ecr.outputs.docker_password_552533042161_dkr_ecr_us_east_1_amazonaws_com }}"
