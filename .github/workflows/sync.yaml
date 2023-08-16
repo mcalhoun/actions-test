@@ -21,7 +21,7 @@ jobs:
           mask-password: "true"
 
       - name: sync
-        uses: cloudposse/github-action-sync-docker-repos@main
+        uses: cloudposse/github-action-sync-docker-repos@initial-implementation
         with:
           src: busybox
           dest: 552533042161.dkr.ecr.us-east-1.amazonaws.com
