@@ -25,4 +25,3 @@ jobs:
         with:
           src: busybox
           dest: 552533042161.dkr.ecr.us-east-1.amazonaws.com
-          dest-credentials: "${{steps.login-ecr.outputs.docker_username_123456789012_dkr_ecr_aws_region_1_amazonaws_com}}:${{steps.login-ecr.outputsdocker_password_123456789012_dkr_ecr_aws_region_1_amazonaws_com}}"
