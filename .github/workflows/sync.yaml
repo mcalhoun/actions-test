@@ -20,6 +20,9 @@ jobs:
         with:
           mask-password: "true"
 
+      - run: |
+          echo "${{ steps.login-ecr.outputs }}"
+
       - name: sync
         uses: cloudposse/github-action-sync-docker-repos@initial-implementation
         with:
